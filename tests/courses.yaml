@@ -1,0 +1,29 @@
+%YAML 1.2
+---
+-
+  name: MEng Computer Science
+  modules:
+    -
+      name: Intro to Programming
+      level: 4
+      components:
+        -
+          name: 100 Question Quiz
+          weighting: 50
+        -
+          name: Programming Challenge
+          weighting: 50
+    -
+      name: Intro to Networking
+      level: 4
+      components:
+        -
+          name: Report (3000 words)
+          weighting: 60
+        -
+          name: Switching Practical
+          weighting: 20
+        -
+          name: Quiz 50 Questions
+          weighting: 20
+...
