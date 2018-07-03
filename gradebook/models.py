@@ -1,15 +1,27 @@
-from sqlalchemy import (Table, Column, SmallInteger, Integer,
-    String, ForeignKey)
-from sqlalchemy.orm import relationship
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, relationship
+from sqlalchemy.schema import Table, Column, ForeignKey
+from sqlalchemy.types import SmallInteger, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
+
+from .settings import settings
+
+
+__all__ = ['Course', 'Module', 'ModuleComponent', 'GradeBook', 'Grade']
 
 
 Base = declarative_base()
-
+Session = sessionmaker()
 
 course_module_table = Table('course_module', Base.metadata,
     Column('course_id', Integer, ForeignKey('course.id')),
     Column('module_id', Integer, ForeignKey('module.id')))
+
+
+def get_db_engine(url, echo=False):
+    engine = create_engine(url, pool_recycle=300, echo=echo)
+    Base.metadata.create_all(engine)
+    return engine
 
 
 class Course(Base):

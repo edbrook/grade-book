@@ -39,7 +39,9 @@ def main():
     }
 
     my_settings = {
-        "db_uri": settings.database
+        "db_uri": settings.database,
+        "db_engine": None,
+        "db_session": None,
     }
 
     # Allow cmdline args to override port number
