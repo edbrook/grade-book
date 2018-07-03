@@ -57,3 +57,4 @@ class Grade(Base):
 
     id = Column(Integer, primary_key=True)
     component = Column(Integer, ForeignKey('module_component.id'))
+    score = Column(Integer)
