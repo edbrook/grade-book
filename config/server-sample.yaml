@@ -1,0 +1,11 @@
+# The addres to bind to. Default is "0.0.0.0"
+# Type: string
+bind_address: "127.0.0.1"
+
+# Port to listen to requests on
+# Type: int
+port: 8080
+
+# Database connection URL
+# Type: string
+database: "sqlite:///:memory:"
