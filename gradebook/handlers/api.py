@@ -21,3 +21,19 @@ class CoursesHandler(JsonHandler):
             self.session.add(course)
             self.session.commit()
             self.success(dict(id=course.id))
+
+
+class CourseHandler(JsonHandler):
+    def get(self, course_id):
+        course = self.session.query(Course) \
+                        .filter(Course.id == course_id) \
+                        .first()
+        if course is not None:
+            modules = list(map(lambda m: m.id, course.modules))
+            course = dict(
+                id=course.id,
+                name=course.name,
+                modules=modules)
+            self.success(dict(course=course))
+        else:
+            self.send_error(404, reason='No such course!')
