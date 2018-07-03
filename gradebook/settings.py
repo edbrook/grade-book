@@ -35,6 +35,7 @@ class Settings:
 
 
 settings = Settings({
+    "num_processes": 1,
     "bind_address": "0.0.0.0",
     "port": 8080,
     "database": None,

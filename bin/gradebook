@@ -1,6 +1,12 @@
 #!/usr/bin/env python
 
 import argparse
+import tornado.httpserver
+import tornado.ioloop
+
+import gradebook
+from gradebook.app import Application
+from gradebook.settings import settings
 
 
 def parse_args():
@@ -19,6 +25,7 @@ def parse_args():
     
     parser.add_argument(
         "-V", "--version", action="version",
+        version=f"%(prog)s {gradebook.__version__}",
         help="Display version information.")
 
     return parser.parse_args()
@@ -26,6 +33,27 @@ def parse_args():
 
 def main():
     args = parse_args()
+    settings.update_from_config(args.config)
+    
+    tornado_settings = {
+    }
+
+    my_settings = {
+        "db_uri": settings.database
+    }
+
+    # Allow cmdline args to override port number
+    port = args.port or settings.port
+
+    application = Application(my_settings=my_settings, **tornado_settings)
+    server = tornado.httpserver.HTTPServer(application)
+    server.bind(port, address=settings.bind_address)
+    server.start(settings.num_processes)
+
+    try:
+        tornado.ioloop.IOLoop.instance().start()
+    except KeyboardInterrupt:
+        tornado.ioloop.IOLoop.instance().stop()
 
 
 if __name__ == '__main__':
