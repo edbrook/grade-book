@@ -9,3 +9,7 @@ port: 8080
 # Database connection URL
 # Type: string
 database: "sqlite:///:memory:"
+
+# Cookie secret key
+# Type: string
+cookie_secret: "CHANGE_ME-CJg==X4s5zbOUo#OxeuZ-NsOR69C@Wj@q-!JU^eH"
